@@ -1,4 +1,6 @@
 from transformers import pipeline
+import transformers
+transformers.logging.set_verbosity_error()
 def initialize_summarizer():
     print("Loading AI Summarization Model(This might take a minute the first time)")
     summarizer=pipeline("summarization",model="sshleifer/distilbart-cnn-12-6")

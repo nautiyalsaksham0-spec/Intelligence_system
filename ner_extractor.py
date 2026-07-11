@@ -1,4 +1,6 @@
 from transformers import pipeline
+import transformers
+transformers.logging.set_verbosity_error()
 def initialize_ner():
     print("Loading AI Named Entity Recognition Model (This might take a minute the first time)...")
     ner_model=pipeline("ner",model="dslim/bert-base-NER",aggregation_strategy="simple")
