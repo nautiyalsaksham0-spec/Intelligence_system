@@ -1,0 +1,4 @@
+transformers<5
+torch
+scikit-learn
+pandas
