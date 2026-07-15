@@ -27,6 +27,7 @@ def extract_entities(analyzed_events_list,ner_model):
         final_intelligence.append({
             "report_title":event['report_title'],
             "ai_summary":event.get('ai_summary',"No summary provided"),
+            "original_details": event['original_details'],
             "locations_spotted":locations,
             "organizations_involved":organizations,
             "key_people":people

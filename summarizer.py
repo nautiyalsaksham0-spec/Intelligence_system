@@ -11,7 +11,7 @@ def summarize_events(clean_events_list, summarizer):
     analyzed_events=[]
 
     for event in clean_events_list:
-        text_to_summarize=event['details']
+        text_to_summarize=event['original_details']
         if len(text_to_summarize.split())>20:
             summary_output=summarizer(text_to_summarize,max_length=50,min_length=10,do_sample=False)
             final_summary=summary_output[0]['summary_text']
@@ -29,11 +29,11 @@ if __name__ == "__main__":
     test_data=[
         {
             "report_title":"Heavy Troop Movement Spotted",
-            "details":"Intelligence analysts have detected a massive influx of armored vehicles and infantry units moving toward the northern border region over the last 48 hours. Satellite imagery confirms the establishment of temporary forward operating bases. Local sources report restricted civilian movement and disrupted communication lines in the area."
+            "original_details":"Intelligence analysts have detected a massive influx of armored vehicles and infantry units moving toward the northern border region over the last 48 hours. Satellite imagery confirms the establishment of temporary forward operating bases. Local sources report restricted civilian movement and disrupted communication lines in the area."
         }
     ]
     ai_model=initialize_summarizer()
-    results=summarize_events(test_data, ai_model)
+    results=summarize_events(test_data,ai_model)
     print("ORIGINAL REPORT")
     print(results[0]['original_details'])
     print("\nAI SUMMARY")
