@@ -2,21 +2,16 @@ import time
 import summarizer
 import ner_extractor
 import classifier
-
+import ingest
 def run_intelligence_pipeline():
     print("\n"+"="*60)
     print(" INITIATING AI-TIES TACTICAL INTELLIGENCE PIPELINE")
     print("="*60+"\n")
-    clean_events_list=[
-        {
-            "report_title":"Border Region Escalation",
-            "original_details":"Intelligence analysts have detected a massive influx of armored vehicles and infantry units moving toward the northern border region near Geneva over the last 48 hours. Satellite imagery confirms the establishment of temporary forward operating bases. The United Nations and European Union are monitoring the situation closely while Secretary General Antonio Guterres prepares a statement."
-        },
-        {
-            "report_title": "City Hall Meeting",
-            "original_details": "Local politicians met to discuss the new budget for road repairs. The meeting concluded peacefully at 4 PM with no incidents or protests."
-        }
-    ]
+    print("[SYSTEM] Fetching live global intelligence data...")
+    clean_events_list = ingest.fetch_live_events()
+    if not clean_events_list:
+        print("[SYSTEM] No live data retrieved. Shutting down pipeline.")
+        return
     print("[SYSTEM] Allocating memory and booting AI Engines...")
     ai_summarizer=summarizer.initialize_summarizer()
     ai_ner=ner_extractor.initialize_ner()

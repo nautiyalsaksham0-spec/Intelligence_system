@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 def fetch_live_events():
     print("Initiating Data Ingestion Pipeline...")
     url="http://feeds.bbci.co.uk/news/world/rss.xml"
-    response=requests.get(url)
+    response=requests.get(url,timeout=10)
     if response.status_code==200:
         print("Success: Connected to live feed!\n")
         root=ET.fromstring(response.content)
@@ -13,7 +13,7 @@ def fetch_live_events():
             description=item.find('description').text
             events.append({
                 "report_title": title, 
-                "details": description
+                "original_details": description
             })
         return events
     else:
@@ -24,4 +24,4 @@ if __name__=="__main__":
     for i,event in enumerate(raw_intelligence_data,1):
         print(f"--- INCOMING EVENT {i} ---")
         print(f"REPORT : {event['report_title']}")
-        print(f"DETAILS : {event['details']}\n")
+        print(f"DETAILS : {event['original_details']}\n")
